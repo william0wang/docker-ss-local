@@ -8,11 +8,11 @@ MAINTAINER William Wang <william@10ln.com>
 ARG SS_VER=2.5.6
 ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
 
-ENV SERVER_ADDR
+ENV SERVER_ADDR=
 ENV LOCAL_ADDR 0.0.0.0
 ENV SERVER_PORT 8388
 ENV LOCAL_PORT 8668
-ENV PASSWORD
+ENV PASSWORD=
 ENV METHOD      aes-256-cfb
 ENV TIMEOUT     300
 
