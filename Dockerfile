@@ -6,7 +6,7 @@ FROM alpine
 MAINTAINER William Wang <william@10ln.com>
 
 ARG SS_VER=3.0.5
-ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SS_VER.tar.gz
+ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.0.5/shadowsocks-libev-$SS_VER.tar.gz
 
 ENV SERVER_ADDR=
 ENV LOCAL_ADDR 0.0.0.0
