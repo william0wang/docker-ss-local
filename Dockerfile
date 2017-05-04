@@ -5,8 +5,8 @@
 FROM alpine
 MAINTAINER William Wang <william@10ln.com>
 
-ARG SS_VER=3.0.5
-ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.0.5/shadowsocks-libev-$SS_VER.tar.gz
+ARG SS_VER=3.0.6
+ARG SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_VER/shadowsocks-libev-$SS_VER.tar.gz
 
 ENV SERVER_ADDR=
 ENV LOCAL_ADDR 0.0.0.0
@@ -18,16 +18,18 @@ ENV TIMEOUT     300
 
 RUN set -ex && \
     apk add --no-cache --virtual .build-deps \
-                                asciidoc \
                                 autoconf \
                                 build-base \
                                 curl \
+                                libev-dev \
                                 libtool \
                                 linux-headers \
-                                openssl-dev \
+                                udns-dev \
+                                libsodium-dev \
+                                mbedtls-dev \
                                 pcre-dev \
                                 tar \
-                                xmlto && \
+                                udns-dev && \
     cd /tmp && \
     curl -sSL $SS_URL | tar xz --strip 1 && \
     ./configure --prefix=/usr --disable-documentation && \
