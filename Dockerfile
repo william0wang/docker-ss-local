@@ -2,7 +2,7 @@
 # Dockerfile for shadowsocks-libev
 #
 
-FROM alpine
+FROM alpine:3.8
 MAINTAINER William Wang <william@10ln.com>
 
 ARG SS_VER=3.3.1
@@ -16,8 +16,12 @@ ENV PASSWORD=
 ENV METHOD      aes-256-cfb
 ENV TIMEOUT     300
 
-RUN set -ex && \
+RUN echo "https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.8/main" > /etc/apk/repositories && \
+echo "https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.8/community" >> /etc/apk/repositories && \
+set -ex && \
     apk add --no-cache --virtual .build-deps \
+    bash ca-certificates openssl curl tzdata pngquant \
+    autoconf automake build-base libtool nasm c-ares-dev \
                                 autoconf \
                                 build-base \
                                 curl \
@@ -34,6 +38,8 @@ RUN set -ex && \
     ./configure --prefix=/usr --disable-documentation && \
     make install && \
     cd .. && \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \
 
     runDeps="$( \
         scanelf --needed --nobanner /usr/bin/ss-* \
